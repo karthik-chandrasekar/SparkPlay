@@ -4,8 +4,12 @@ from pyspark import SparkContext
 
 
 def main():
+
     # Load and parse the data
+
     sc = SparkContext("local", "SparkSampleRun")
+    
+    #This input has to be converted to tf/idf vectors. Documents to vectors conversion
     data = sc.textFile("sample_reviews.txt")
     parsedData = data.map(lambda line: [x for x in line.split(' ') if x])
     model = NaiveBayes.train(parsedData)
