@@ -1,4 +1,4 @@
-from pyspark.mllib.classification import LogisticRegressionWithSGD
+from pyspark.mllib.classification import NaiveBayes
 from numpy import array
 from pyspark import SparkContext
 
@@ -8,7 +8,7 @@ def main():
     sc = SparkContext("local", "SparkSampleRun")
     data = sc.textFile("sample_reviews.txt")
     parsedData = data.map(lambda line: [x for x in line.split(' ') if x])
-    model = LogisticRegressionWithSGD.train(parsedData)
+    model = NaiveBayes.train(parsedData)
 
     # Build the model
     labelsAndPreds = parsedData.map(lambda point: (point.item(0),model.predict(point.take(range(1, point.size)))))
